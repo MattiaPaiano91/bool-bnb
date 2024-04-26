@@ -17,71 +17,142 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-bool bg-white shadow">
-            <div class="container bg-white ">
-                <div class="box-img-logo">
-                    <img src="{{ asset('img/loghi/boolbnb-rosa-sfondobianco-150px.JPG') }}" class=" h-100 w-100 "
-                        alt="">
-                </div>
-                <div class="collapse navbar-collapse mx-4 " id="navbarText">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item mx-5">
-                            <a class="icon-link text-black text-decoration-none hov-underline"
-                                href="{{ route('admin.apartments.index') }}">
-                                Appartamenti
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.apartments.create') }}"
-                                class="icon-link text-black text-decoration-none hov-underline">Crea un
-                                Appartamento</a>
-                        </li>
-                    </ul>
-                    <div>
-                        <a class="mb-1" href="{{ route('admin.dashboard') }}" class="">
-                            <button class=" btn-turn-back rounded-4">
-                                Torna alla Home
-                            </button>
+        <nav class="navbar navbar-expand-lg navbar-bool bg-white border-bottom container-fluid">
+
+            <div class="box-img-logo">
+                <img src="{{ asset('img/loghi/boolbnb-rosa-sfondobianco-150px.JPG') }}" class=" h-100 w-100 "
+                    alt="">
+            </div>
+            <div class="collapse navbar-collapse mx-4 " id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item mx-5">
+                        <a class="icon-link text-black text-decoration-none hov-underline"
+                            href="{{ route('admin.apartments.index') }}">
+                            Appartamenti
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.apartments.create') }}"
+                            class="icon-link text-black text-decoration-none hov-underline">Crea un
+                            Appartamento</a>
+                    </li>
+                </ul>
+                <div>
+                    <button type="button" class="btn-turn-back rounded-4" data-bs-toggle="modal"
+                        data-bs-target="#my-modal">
+                        Appartamenti
+                        archiviati
+                    </button>
+                    <!-- Archivo Modal -->
+                    <div class="modal fade" id="my-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Archivio BoolBnB</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                {{-- <div class="modal-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Img</th>
+                                                <th scope="col">Nome</th>
+                                                <th scope="col">Prezzo</th>
+                                                <th scope="col">Azioni</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($apartments as $apartment)
+                                                @if ($apartment->deleted_at != null)
+                                                    <tr>
+
+                                                        <td>
+                                                            @if (!empty($apartment->full_cover_img))
+                                                                <img class="card-img-top object-fit-contain "
+                                                                    src="{{ $apartment->full_cover_img }}"
+                                                                    alt="Cover Image">
+                                                            @else
+                                                                <img src="{{ asset('img/loghi/boolairbnb-favicon.PNG') }}"
+                                                                    class="card-img-top object-fit-contain "
+                                                                    alt="Default Cover Image">
+                                                            @endif
+                                                            
+                                                        </td>
+                                                        <td>{{ $apartment->name }}</td>
+                                                        <td>{{ $apartment->price }}</td>
+                                                        <td>
+                                                            <div class="d-flex flex-column">
+                                                                <form class="mt-5"
+                                                                    id="deleteForm{{ $apartment->slug }}"
+                                                                    action="{{ route('admin.restore', ['slug' => $apartment->slug]) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    <button type="submit" class="btn btn-danger"
+                                                                        data-bs-target="#deleteConfirmation{{ $apartment->slug }}">
+                                                                        Recupera
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div> --}}
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger"
+                                        data-bs-dismiss="modal">Chiudi</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <form method="POST" action="{{ route('logout') }}" class="m-0">
-                            @csrf
-                            <button type="submit" class="btn-turn-back rounded-4">
-                                Log Out
-                            </button>
-                        </form>
-                    </div>
+                    <a class="mb-1" href="{{ route('admin.dashboard') }}" class="">
+                        <button class=" btn-turn-back rounded-4">
+                            Torna alla Home
+                        </button>
+                    </a>
+                </div>
+                <div>
+                    <form method="POST" action="{{ route('logout') }}" class="m-0">
+                        @csrf
+                        <button type="submit" class="btn-turn-back rounded-4">
+                            Log Out
+                        </button>
+                    </form>
                 </div>
             </div>
+
         </nav>
     </header>
     <main class="py-4">
-        <div class="container">
-            @yield('main-content')
-            <!-- Icona del chat bot -->
-            <div class="chat-icon" id="chatIcon">
-                
-                <img src="{{ asset('img/loghi/boolairbnb-favicon.PNG') }}" class="w-100 h-100" alt="Chat Icon">
-            </div>
 
-            <!-- Finestra della chat -->
-            <div class="chat-box" id="chatBox">
-                <div class="chat-header">
-                    <h4 class="">BoolBot</h4>
-                    <span class="close-btn" id="closeBtn">&times;</span>
+        @yield('main-content')
+        <!-- Icona del chat bot -->
+        <div class="chat-icon" id="chatIcon">
+
+            <img src="{{ asset('img/loghi/boolairbnb-favicon.PNG') }}" class="w-100 h-100" alt="Chat Icon">
+        </div>
+
+        <!-- Finestra della chat -->
+        <div class="chat-box" id="chatBox">
+            <div class="chat-header">
+                <h4 class="">BoolBot</h4>
+                <span class="close-btn" id="closeBtn">&times;</span>
+            </div>
+            <div class="chat-body">
+                <div class="message received">
+                    <p>Ciao sono BoolBot! Come posso aiutarti?</p>
                 </div>
-                <div class="chat-body">
-                    <div class="message received">
-                        <p>Ciao sono BoolBot! Come posso aiutarti?</p>
-                    </div>
-                </div>
-                <div class="chat-footer">
-                    <input type="text"id="userMessage" placeholder="Scrivi un messaggio...">
-                    <button id="sendMessage" class="btn btn-danger rounded-4">Invia</button>
-                </div>
+            </div>
+            <div class="chat-footer">
+                <input type="text"id="userMessage" placeholder="Scrivi un messaggio...">
+                <button id="sendMessage" class="btn btn-danger rounded-4">Invia</button>
             </div>
         </div>
+
     </main>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@openai/openai-js"></script>
