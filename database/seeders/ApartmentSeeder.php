@@ -61,17 +61,7 @@ class ApartmentSeeder extends Seeder
                 $apartment->latitude = $data['results'][0]['position']['lat'];
                 $apartment->longitude = $data['results'][0]['position']['lon'];
                 $apartment->address = $data['results'][0]['address']['freeformAddress'];
-                // $apartment->city = $apartmentAddress[$i]['city'];
                 $apartment->img_cover_path = $imagePath[$i];
-                
-                //   $user = User::inRandomOrder()->first();
-
-                //     // Verifica se l'appartamento è già assegnato a un altro utente
-                //     while (Apartment::where('id', $apartment->id)->whereNotNull('user_id')->exists()) {
-                //         $user = User::inRandomOrder()->first();
-                //     }
-
-                //     $apartment->user_id = $user->id;
                     $user = User::inRandomOrder()->first();
                     $apartment->user_id = $user->id;
                     $apartment->save();
